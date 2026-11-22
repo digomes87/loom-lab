@@ -1,0 +1,52 @@
+# Loom Lab — stack completa em containers.
+# Uso: docker compose -f docker-compose.fullstack.yml up --build
+# Depois abra http://localhost:3000
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: loomlab-postgres-full
+    environment:
+      POSTGRES_DB: loomlab
+      POSTGRES_USER: loomlab
+      POSTGRES_PASSWORD: loomlab
+    volumes:
+      - loomlab-pgdata-full:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loomlab -d loomlab"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: loomlab-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/loomlab
+      SPRING_DATASOURCE_USERNAME: loomlab
+      SPRING_DATASOURCE_PASSWORD: loomlab
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 25s
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # assado no routes-manifest durante o next build
+        BACKEND_URL: http://backend:8080
+    container_name: loomlab-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  loomlab-pgdata-full:

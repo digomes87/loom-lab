@@ -5,6 +5,8 @@ import type { NextConfig } from "next";
 const backend = process.env.BACKEND_URL ?? "http://localhost:8080";
 
 const nextConfig: NextConfig = {
+  // gera .next/standalone com server.js mínimo — usado pelo Dockerfile
+  output: "standalone",
   cacheComponents: true,
   partialPrefetching: true,
   async rewrites() {
