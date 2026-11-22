@@ -11,7 +11,8 @@ services:
       POSTGRES_USER: loomlab
       POSTGRES_PASSWORD: loomlab
     ports:
-      - "5432:5432"
+      # 5433 no host: a 5432 já é usada por um Postgres nativo na máquina
+      - "5433:5432"
     volumes:
       # Postgres 18+ recomenda montar em /var/lib/postgresql (não /data) para facilitar pg_upgrade
       - loomlab-pgdata:/var/lib/postgresql

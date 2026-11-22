@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: loomlab
+
+  datasource:
+    # porta 5433 no host (a 5432 é ocupada por um Postgres nativo da máquina)
+    url: jdbc:postgresql://localhost:5433/loomlab
+    username: loomlab
+    password: loomlab
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  threads:
+    virtual:
+      # Cada request HTTP do Tomcat roda em uma virtual thread (Project Loom, final desde o JDK 21).
+      # É a linha que substitui servidores reativos (WebFlux) para concorrência I/O-bound.
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
