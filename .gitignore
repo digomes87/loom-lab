@@ -1,0 +1,32 @@
+# --- Java / Maven ---
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+hs_err_pid*
+replay_pid*
+
+# --- Node / Next.js ---
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+frontend/.vercel
+
+# --- IDEs ---
+.idea/
+*.iml
+.vscode/
+!.vscode/extensions.json
+
+# --- Sistemas operacionais ---
+.DS_Store
+Thumbs.db
+
+# --- Diversos ---
+*.log
+.env
+.env.local

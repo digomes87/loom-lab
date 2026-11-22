@@ -1,0 +1,25 @@
+# Loom Lab — infraestrutura de desenvolvimento
+# Sobe apenas o Postgres; backend (mvn spring-boot:run) e frontend (npm run dev) rodam na máquina.
+# Para a stack completa em containers, use docker-compose.fullstack.yml (criada na etapa de Docker).
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: loomlab-postgres
+    environment:
+      POSTGRES_DB: loomlab
+      POSTGRES_USER: loomlab
+      POSTGRES_PASSWORD: loomlab
+    ports:
+      - "5432:5432"
+    volumes:
+      # Postgres 18+ recomenda montar em /var/lib/postgresql (não /data) para facilitar pg_upgrade
+      - loomlab-pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loomlab -d loomlab"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  loomlab-pgdata:
