@@ -1,10 +1,10 @@
 # Loom Lab — frontend
 
-Dashboard Next.js 16 (App Router, TypeScript, recharts) que visualiza a API do
-backend Spring Boot. Veja o `README.md` da raiz do repositório para o projeto
-completo e o mapa de JEPs do Java 26.
+Next.js 16 dashboard (App Router, TypeScript, recharts) visualizing the Spring Boot
+backend API. See the repository root `README.md` for the full project and the Java 26
+JEP map.
 
 ```bash
 npm install
-npm run dev   # http://localhost:3000 — requer o backend em localhost:8080
+npm run dev   # http://localhost:3000 — requires the backend on localhost:8080
 ```
